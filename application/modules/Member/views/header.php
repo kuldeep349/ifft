@@ -112,7 +112,7 @@ $user_info = userdetails();
                     </div>
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
-                        <li class=""><a href="#"><i class="fa fa-link"></i> <span>Join Now</span></a></li>
+                        <li class=""><a href="<?php echo base_url('Member/User/register_user');?>"><i class="fa fa-link"></i> <span>Join Now</span></a></li>
                         <li class="treeview">
                             <a href="#"><i class="fa fa-link"></i> <span>Fund Management</span>
                                 <span class="pull-right-container">
@@ -121,7 +121,18 @@ $user_info = userdetails();
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="<?php echo base_url('Member/Fund'); ?>">Request Fund</a></li>
-                                <li><a href="#">Fund History</a></li>
+                                <li><a href="<?php echo base_url('Member/Fund/Transctions'); ?>">Fund History</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#"><i class="fa fa-link"></i> <span>Shopping</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="<?php echo base_url('Member/Shopping/products'); ?>">Products</a></li>
+                                <li><a href="<?php echo base_url('Member/Shopping/cart'); ?>">Cart</a></li>
                             </ul>
                         </li>
                         <li class=""><a href="<?php echo base_url('Member/Logout'); ?>"><i class="fa fa-link"></i> <span>Logout</span></a></li>

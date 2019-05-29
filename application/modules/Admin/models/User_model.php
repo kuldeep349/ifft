@@ -15,4 +15,8 @@ class User_model extends CI_Model {
         $query = $this->db->get_where('tbl_admin',array('id' => $id));
         return $query->row_array();
     }
+    public function insert($table,$data) {
+        $this->db->insert($table, $data);
+        return $this->db->insert_id();
+    }
 }

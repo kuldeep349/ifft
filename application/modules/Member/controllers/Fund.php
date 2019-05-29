@@ -14,50 +14,59 @@ class Fund extends CI_Controller {
     public function index() {
         if (is_loggedin() == true) {
             $result = array();
-            $result['error'] = '';
             if ($this->input->post()) {
-                $amount = 8263;
+//                pr($this->input->post(),true);
+                $amount = $this->input->post('amount');
                 $deposit_date = $this->input->post('deposit_date');
                 $payment_method = $this->input->post('payment_method');
                 $description = $this->input->post('description');
+                $transaction_id = $this->input->post('transaction_id');
                 if ($amount == '') {
                     $result['error'] = 'Invalid Amount';
-                } elseif ($deposit_date == '') {
-                    $result['error'] = 'Invalid Deposit Date';
                 } elseif ($payment_method == '') {
                     $result['error'] = 'Invalid Payment Method';
                 } elseif ($description == '') {
                     $result['error'] = 'Description could not be empty';
+                } elseif ($transaction_id == '') {
+                    $result['error'] = 'Transaction could not be empty';
                 } else {
-                    $ext = explode('.', basename($_FILES['userfile']['name']));
-                    $file_extension = end($ext);
-                    $new_image_name = 'IMG_' . time() . '.' . $file_extension;
-                    $config['upload_path'] = './uploads/';
-                    $config['file_name'] = $new_image_name;
-                    $config['allowed_types'] = 'gif|jpg|png|jpeg|mp4';
-                    $this->load->library('upload', $config);
-                    $this->upload->initialize($config);
-                    if (!$this->upload->do_upload('userfile')) {
-                        echo $result['error'] = $this->upload->display_errors();
-                        pr($_FILES['userfile']['name']);
+                    $data = array(
+                        'user_id' => $this->session->userdata['user_info']['user_id'],
+                        'amount' => $amount,
+                        //'deposit_date' => $deposit_date,
+                        'payment_method' => $payment_method,
+                        'description' => $description,
+                        'transaction_id' => $transaction_id,
+                    );
+                    $transaction_id = $this->member_model->getData('tbl_payment_request', array('transaction_id' => $transaction_id), '*');
+                    if (count($transaction_id)) {
+                        $result['error'] = "This Transaction ID is Already Used";
                     } else {
-
-                        $upload_data = $this->upload->data();
-                        $data = array(
-                            'user_id' => $this->session->userdata['user_info']['user_id'],
-                            'amount' => $amount,
-                            'deposit_date' => $deposit_date,
-                            'payment_method' => $payment_method,
-                            'description' => $description,
-                            'image' => $new_image_name
-                        );
-                        $res = $this->post_model->create('tbl_payment_request', $data);
-                        $response['error'] = "image Uploaded successfully";
+                        $res = $this->member_model->create('tbl_payment_request', $data);
+                        if ($res == FALSE) {
+                            $result['error'] = 'Error while Submitting Request Please try again';
+                        } else {
+                            $result['error'] = "Payment Request Submitted successfully";
+                        }
                     }
                 }
+            } else {
+                $result['error'] = '';
             }
             $this->load->view('header');
             $this->load->view('Fund/fund', $result);
+            $this->load->view('footer');
+        } else {
+            redirect('/Member/Login');
+        }
+    }
+
+    public function Transctions() {
+
+        if (is_loggedin() == true) {
+            $result['transactions'] = $this->member_model->getData('tbl_payment_request', array('user_id' => $this->session->userdata['user_info']['user_id']), '*');
+            $this->load->view('header');
+            $this->load->view('Fund/history', $result);
             $this->load->view('footer');
         } else {
             redirect('/Member/Login');

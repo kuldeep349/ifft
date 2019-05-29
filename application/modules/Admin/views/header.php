@@ -10,6 +10,9 @@
         <link rel="stylesheet" href="<?php echo base_url('Assets/'); ?>bower_components/Ionicons/css/ionicons.min.css">
         <link rel="stylesheet" href="<?php echo base_url('Assets/'); ?>dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="<?php echo base_url('Assets/'); ?>dist/css/skins/skin-red.min.css">
+        
+        <script src="<?php echo base_url('Assets/'); ?>bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="<?php echo base_url('Assets/'); ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
     </head>
     <!--
@@ -117,6 +120,18 @@
                             <ul class="treeview-menu">
                                 <li><a href="#">All Associates</a></li>
                                 <li><a href="#">TreeView</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#"><i class="fa fa-link"></i> <span>Fund</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="<?php echo base_url('Admin/Fund/Transactions');?>">Fund Requests</a></li>
+                                <li><a href="#">Approved Fund Requests</a></li>
+                                <li><a href="#">Rejected Fund Requests</a></li>
                             </ul>
                         </li>
                         <li><a href="<?php echo base_url('Admin/Logout');?>"><i class="fa fa-link"></i> <span>Logout</span></a></li>

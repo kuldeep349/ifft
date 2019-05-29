@@ -23,7 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://127.0.0.1/Codeigniter-HMVC-master/';
+$config['base_url'] = 'http://192.168.1.105/Codeigniter-HMVC-master/';
+$config['base_url'] = 'http://172.20.10.4/Codeigniter-HMVC-master/';
 
 /*
 |--------------------------------------------------------------------------

@@ -13,8 +13,10 @@ class Member extends CI_Controller {
 
     public function index() {
         if (is_loggedin() == true) {
+            redirect('/Member/User/profile');
+            exit;
             $this->load->view('header');
-            $this->load->view('sample');
+            $this->load->view('');
             $this->load->view('footer');
         } else {
             redirect('/Member/Login');
